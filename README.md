@@ -46,7 +46,58 @@ https://github.com/AllyWalk/OpenFi/blob/main/App%20OpenFi.rar
 ---
 ## Who will be responsible for building each part?
 
-- **Mayra Capetillo González** – Mobile frontend (Flutter) and user experience design.  
+- **Mayra Capetillo González** – Mobile frontend and user experience design.  
 - **Leonardo Medina Castañeda** – Backend (Node.js/NestJS) and business logic APIs.  
-- **Noé Quintero Águila** – Database (PostgreSQL/Firebase) and data modeling.  
-- **Pedro Escalera Tavares** – Cloud infrastructure and SMS/OTP integration.  
+- **Noé Quintero Águila** – Frrontend and Backend
+- **Pedro Escalera Tavares** – Cloud infrastructure and SMS/OTP integration.
+
+---
+## Español
+
+## ¿Qué es OpenFi?  
+
+- **Pagos Abiertos para la Inclusión Financiera**  
+- Nuestro proyecto aborda la falta de inclusión financiera que enfrentan las comunidades de bajos ingresos. Propone un sistema accesible y de bajo costo para realizar transacciones seguras sin depender de la banca tradicional. Funciona en dispositivos sencillos con conectividad limitada, fomenta el ahorro, la formalización de pequeños negocios y la integración económica, contribuyendo así a una sociedad más justa y equitativa.  
+
+---  
+## ¿Cuál es la solución?  
+
+Una aplicación móvil ligera que permite a las personas en comunidades rurales enviar y recibir pagos digitales incluso con conectividad mínima.  
+El sistema requiere que solo un participante (comprador o vendedor) tenga acceso a internet. Cada transacción se valida con un código único por SMS (OTP), garantizando la identidad del usuario y la actualización segura de los saldos en el servidor.  
+
+**Ejemplo:**  
+- El comerciante selecciona al comprador en la aplicación.  
+- El comprador recibe un SMS con un código y lo comparte con el comerciante.  
+- El comerciante ingresa el código en la aplicación, valida al comprador y confirma el pago.  
+- El servidor actualiza los saldos porque al menos una de las partes está conectada a internet.  
+
+---  
+## ¿Cuáles son los beneficios?  
+
+- Inclusión financiera real para comunidades sin acceso constante a internet.  
+- Menor dependencia del efectivo, reduciendo riesgos de seguridad.  
+- Validación simple y confiable a través de SMS.  
+- Fácil adopción: solo se requiere un teléfono básico y un registro.  
+- Potencial integración futura con sistemas de remesas (Open Payments).  
+
+## ¿Cuáles son las funciones indispensables?  
+
+1. Registro de usuario con datos básicos (nombre, número de teléfono).  
+2. Enviar y recibir pagos (OP).  
+3. Validación de transacciones mediante SMS (OTP).  
+4. Sincronización automática cuando haya internet disponible.  
+5. Historial de transacciones para cada usuario.  
+6. Cifrado de datos y seguridad de cuentas.  
+
+## ¿Cuál es la arquitectura/stack simple?  
+
+https://github.com/AllyWalk/OpenFi/blob/main/App%20OpenFi.rar  
+
+---  
+## ¿Quién será responsable de construir cada parte?  
+
+- **Mayra Capetillo González** – Frontend y diseño de experiencia de usuario.  
+- **Leonardo Medina Castañeda** – Backend (Node.js/NestJS) y APIs de lógica de negocio.  
+- **Noé Quintero Águila** – Frontend y Backend  
+- **Pedro Escalera Tavares** – Infraestructura en la nube e integración SMS/OTP.  
+
