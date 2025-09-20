@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OpenFi - Demo (HTML only)</title>
+  <style>
+    :root{
+      --teal:#00897b;
+      --bg:#f5f7f8;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --radius:12px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{ margin:0; background:var(--bg); color:#111; }
+    header{ background:var(--teal); color:#fff; padding:18px 16px; text-align:center; }
+    .container{ max-width:920px; margin:22px auto; padding:0 16px; }
+    .row{ display:flex; gap:12px; }
+    .col{ flex:1; }
+    .card{ background:var(--card); border-radius:var(--radius); padding:16px; box-shadow:0 6px 18px rgba(0,0,0,0.04); }
+    .btn-grid{ display:flex; gap:10px; }
+    .btn{ flex:1; background:#fff; border-radius:10px; padding:18px; text-align:center; cursor:pointer; border:1px solid #eee; }
+    .btn:hover{ box-shadow:0 6px 18px rgba(0,0,0,0.06); transform:translateY(-2px); }
+    .icon{ font-weight:700; color:var(--teal); display:block; font-size:20px; margin-bottom:8px; }
+    .small{ color:var(--muted); font-size:13px; }
+    .balance{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; }
+    .amount{ font-size:28px; font-weight:700; color:#111; }
+    .menu{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+    .menu-item{ background:#fff; padding:12px; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; border:1px solid #f0f0f0; }
+    .menu-item:hover{ box-shadow:0 6px 18px rgba(0,0,0,0.04); transform:translateY(-2px); }
+    .menu-item .mi-icon{ width:28px; text-align:center; color:var(--teal); font-weight:700; }
+    .screen{ display:none; }
+    .screen.active{ display:block; }
+    input, button{ font-family: inherit; }
+    input[type="text"], input[type="number"]{ width:100%; padding:10px; border-radius:8px; border:1px solid #e6e9ef; margin-top:6px; }
+    .actions{ display:flex; gap:10px; margin-top:14px; }
+    .primary{ background:var(--teal); color:#fff; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .secondary{ background:#eee; color:#333; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; }
+    .message{ margin-top:12px; font-size:14px; }
+    .back{ background:transparent; border:0; color:var(--teal); font-weight:700; cursor:pointer; padding:6px 0; }
+    @media (max-width:720px){ .row{ flex-direction:column; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 style="margin:0;font-size:20px">OpenFi</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Home screen -->
+    <div id="home" class="screen active">
+      <div class="card">
+        <div class="btn-grid" style="margin-bottom:12px">
+          <div class="btn" onclick="showScreen('send')">
+            <div class="icon">→ Enviar</div>
+            <div class="small">Pagar a un comercio o persona</div>
+          </div>
+          <div class="btn" onclick="showScreen('receive')">
+            <div class="icon">↓ Recibir</div>
+            <div class="small">Confirmar código y recibir pago</div>
+          </div>
+        </div>
+
+        <div class="balance">
+          <div>
+            <div class="small">Saldo Actual</div>
+            <div class="amount">$ 250.00</div>
+          </div>
+          <div style="font-size:28px;color:var(--teal)">[Wallet]</div>
+        </div>
+      </div>
+
+      <div class="menu">
+        <div class="menu-item" onclick="alert('Menú de Cuenta')">
+          <div class="mi-icon">👤</div>
+          <div>
+            <div style="font-weight:600">Menú de Cuenta</div>
+            <div class="small">Perfil y ajustes</div>
+          </div>
+        </div>
+
+        <div class="menu-item" onclick="simulateSms()">
+          <div class="mi-icon">✉️</div>
+          <div>
+            <div style="font-weight:600">Enviar SMS de Verificación</div>
+            <div class="small">Generar código de prueba (solo demo)</div>
+          </div>
+        </div>
+
+        <div class="menu-item" onclick="alert('Historial')">
+          <div class="mi-icon">📜</div>
+          <div>
+            <div style="font-weight:600">Historial</div>
+            <div class="small">Ver transacciones</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Send screen -->
+    <div id="send" class="screen">
+      <div style="margin-bottom:8px">
+        <button class="back" onclick="showScreen('home')">← Volver</button>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Enviar Dinero</h3>
+        <div class="small">Selecciona destinatario y solicita código por SMS para verificar la transacción.</div>
+
+        <div style="margin-top:12px">
+          <label class="small">Nombre del destinatario</label>
+          <input id="sendRecipient" type="text" placeholder="Ej. Mayra Capetillo">
+        </div>
+
+        <div style="margin-top:10px">
+          <label class="small">Monto (MXN)</label>
+          <input id="sendAmount" type="number" min="1" value="15">
+        </div>
+
+        <div class="actions">
+          <button class="primary" onclick="requestSms()" >Solicitar SMS y Enviar</button>
+          <button class="secondary" onclick="showScreen('home')">Cancelar</button>
+        </div>
+
+        <div id="sendMsg" class="message" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- Receive screen -->
+    <div id="receive" class="screen">
+      <div style="margin-bottom:8px">
+        <button class="back" onclick="showScreen('home')">← Volver</button>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Recibir Dinero</h3>
+        <div class="small">Introduce el código que recibiste por SMS para confirmar el pago.</div>
+
+        <div style="margin-top:12px">
+          <label class="small">Tu nombre</label>
+          <input id="receiveName" type="text" placeholder="Ej. Mayra Capetillo">
+        </div>
+
+        <div style="margin-top:10px">
+          <label class="small">Código de verificación</label>
+          <input id="receiveCode" type="text" placeholder="Ej. 0254">
+        </div>
+
+        <div class="actions">
+          <button class="primary" onclick="confirmCode()">Confirmar código</button>
+          <button class="secondary" onclick="showScreen('home')">Cancelar</button>
+        </div>
+
+        <div id="receiveMsg" class="message" style="display:none"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Simple single-file behavior (HTML-only deliverable)
+    function showScreen(id){
+      var screens = document.querySelectorAll('.screen');
+      screens.forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      // hide messages
+      var m1 = document.getElementById('sendMsg'); if(m1) m1.style.display='none';
+      var m2 = document.getElementById('receiveMsg'); if(m2) m2.style.display='none';
+    }z
+
+    // Store simulated OTP in sessionStorage for demo
+    function simulateSms(){
+      var code = Math.floor(1000 + Math.random()*9000).toString();
+      sessionStorage.setItem('openfi_otp', code);
+      alert('Simulated SMS sent. Code: ' + code + ' (also stored in session for demo)');
+      console.log('Simulated SMS code:', code);
+    }
+
+    function requestSms(){
+      var recipient = document.getElementById('sendRecipient').value.trim();
+      var amount = document.getElementById('sendAmount').value;
+      var msg = document.getElementById('sendMsg');
+      if(!recipient || !amount){ msg.style.display='block'; msg.innerText='Por favor ingresa destinatario y monto.'; return; }
+      // generate and store code
+      var code = Math.floor(1000 + Math.random()*9000).toString();
+      sessionStorage.setItem('openfi_otp', code);
+      msg.style.display='block';
+      msg.innerHTML = 'SMS simulado enviado al destinatario. Código: <strong>' + code + '</strong>. Pide al destinatario que comparta el código.';
+      console.log('SMS verification code (simulated):', code);
+    }
+
+    function confirmCode(){
+      var entered = document.getElementById('receiveCode').value.trim();
+      var name = document.getElementById('receiveName').value.trim() || 'recipient';
+      var stored = sessionStorage.getItem('openfi_otp');
+      var msg = document.getElementById('receiveMsg');
+      msg.style.display='block';
+      if(!entered){ msg.innerText = 'Por favor ingresa el código.'; return; }
+      if(entered === stored){
+        msg.innerHTML = 'Código verificado. Pago confirmado para ' + name + '.';
+        console.log('Payment confirmed for', name);
+        sessionStorage.removeItem('openfi_otp');
+      } else {
+        msg.innerText = 'Código inválido. Intenta de nuevo.';
+      }
+    }
+  </script>
+</body>
+</html>
