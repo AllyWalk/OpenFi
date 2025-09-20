@@ -37,4 +37,14 @@ The system requires only one participant (buyer or seller) to have internet acce
 3. Transaction validation through SMS (OTP).  
 4. Automatic synchronization when internet is available.  
 5. Transaction history for each user.  
-6. Data encryption and account security.  
+6. Data encryption and account security.
+
+## What is your simple architecture/stack?
+
+---
+## Who will be responsible for building each part?
+
+- **Mayra Capetillo González** – Mobile frontend (Flutter) and user experience design.  
+- **Leonardo Medina Castañeda** – Backend (Node.js/NestJS) and business logic APIs.  
+- **Noé Quintero Águila** – Database (PostgreSQL/Firebase) and data modeling.  
+- **Pedro Escalera Tavares** – Cloud infrastructure and SMS/OTP integration.  
